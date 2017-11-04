@@ -3,6 +3,7 @@ package pl.emisoft.calculatingdevice;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -68,6 +69,7 @@ public class Keyboard extends JPanel {
 	private final void addButtonsToPanel() {
 		GridBagConstraints layoutConstraints = new GridBagConstraints();	
 		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(5, 5, 5, 5);
 		
 		layoutConstraints.weightx = 0.5;
 		layoutConstraints.weighty = 0.5;
