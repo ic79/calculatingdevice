@@ -1,8 +1,7 @@
 package pl.emisoft.calculatingdevice;
 
-public class OperationMultiply extends ArithmeticOperation {
+public class OperationMultiply implements ArithmeticOperation {
 
-	@Override
 	public double getResult(double argument1, double argument2) {
 		return argument1 * argument2;
 	}
