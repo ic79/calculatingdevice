@@ -12,13 +12,14 @@ public class Controller {
 	
 	private InputStringBuilder stringBuilder;
 	private double actualResult = 0.0;
+	private double userInputDouble = 0.0;
 		
 	public Controller(Display nDisplay, Keyboard nKeyboard) {
 		display = nDisplay;
 		keyboard = nKeyboard;
 		
 		operationMap = new ArithmeticOperationMap();		
-		currentOperation = operationMap.get('=');
+		currentOperation = operationMap.get("=");
 		
 		stringBuilder = new InputStringBuilder(NUMBER_OF_DIGITS);
 		
@@ -27,21 +28,30 @@ public class Controller {
 	}
 	
 	public void performActionForKey(char ch) {	
-		if (operationMap.isOperationChar(ch)) operationPressed(ch);
+		if (operationMap.isOperationChar(ch+"")) operationPressed(ch);
 		else if (ch == 'C') clearPressed();
 		else if (ch == 'O') offPressed();
+		else if (ch == '%') percentPressed();
 		else digitOrDotPressed(ch);
 	}
 	
 	private void digitOrDotPressed(char ch) {
-		double userInputDouble = getDoubleFromString(stringBuilder.appendToString(ch));
+		userInputDouble = getDoubleFromString(stringBuilder.appendToString(ch));
 		validateDisplay(userInputDouble);
 	}
 	
 	private void operationPressed(char ch) {
-		performCurrentOperation();
+		performCurrentOperation(userInputDouble, actualResult);
 		validateDisplay(actualResult);
-		setArithmeticOperation(operationMap.get(ch));
+		setArithmeticOperation(operationMap.get(ch+""));
+	}
+	
+	private void percentPressed() {
+		if (currentOperation.equals(operationMap.get("+")))	currentOperation = operationMap.get("+%");
+		if (currentOperation.equals(operationMap.get("*")))	currentOperation = operationMap.get("*%");
+		if (currentOperation.equals(operationMap.get("-")))	currentOperation = operationMap.get("-%");
+		if (currentOperation.equals(operationMap.get("/")))	currentOperation = operationMap.get("/%");
+		operationPressed('=');
 	}
 	
 	private void clearPressed() {
@@ -55,12 +65,9 @@ public class Controller {
 		return;
 	}
 	
-	private void performCurrentOperation() {
-		String myInputString = stringBuilder.getInputString();
-		
-		if (!myInputString.equals("")) {
-			double actualArgument = getDoubleFromString(myInputString);
-			actualResult = currentOperation.getResult(actualArgument, actualResult);
+	private void performCurrentOperation(double input, double result) {
+		if (!stringBuilder.isEmptyString()) {
+			actualResult = currentOperation.getResult(input, result);
 			stringBuilder.clearString();
 		}
 	}

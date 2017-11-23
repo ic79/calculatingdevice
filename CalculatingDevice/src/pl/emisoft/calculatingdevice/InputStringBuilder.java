@@ -22,6 +22,11 @@ public class InputStringBuilder {
 		dotPresent = false;
 	}
 	
+	public boolean isEmptyString() {
+		if (inputString.equals("")) return true;
+		else return false;
+	}
+	
 	public String getInputString() {
 		return inputString;
 	}

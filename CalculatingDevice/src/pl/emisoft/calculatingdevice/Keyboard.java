@@ -18,6 +18,7 @@ public class Keyboard extends JPanel {
 	private JButton buttonMultiplication;
 	private JButton buttonDivision;
 	private JButton buttonDot;
+	private JButton buttonPercent;
 	private JButton buttonEquality;
 	private JButton buttonClear;
 	private JButton buttonOff;
@@ -46,6 +47,7 @@ public class Keyboard extends JPanel {
 		buttonMultiplication.addActionListener(keyListener);
 		buttonDivision.addActionListener(keyListener);
 		buttonEquality.addActionListener(keyListener);
+		buttonPercent.addActionListener(keyListener);
 		
 		buttonClear.addActionListener(keyListener);
 		buttonOff.addActionListener(keyListener);
@@ -59,6 +61,7 @@ public class Keyboard extends JPanel {
 		buttonSubstraction = new JButton("-");
 		buttonMultiplication = new JButton("*");
 		buttonDivision = new JButton("/");
+		buttonPercent = new JButton("%");
 		
 		buttonDot = new JButton(".");
 		buttonEquality = new JButton("=");
@@ -138,15 +141,21 @@ public class Keyboard extends JPanel {
 		layoutConstraints.gridx = 2;
 		layoutConstraints.gridy = 3;
 		this.add(buttonEquality, layoutConstraints);
-		
+
 		layoutConstraints.gridwidth = 2;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 4;
-		this.add(buttonClear, layoutConstraints);
+		this.add(buttonOff, layoutConstraints);
 		
+		layoutConstraints.gridwidth = 1;
 		layoutConstraints.gridx = 2;
 		layoutConstraints.gridy = 4;
-		this.add(buttonOff, layoutConstraints);
+		this.add(buttonClear, layoutConstraints);
+		
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridx = 3;
+		layoutConstraints.gridy = 4;
+		this.add(buttonPercent, layoutConstraints);
 	}
 	
 }

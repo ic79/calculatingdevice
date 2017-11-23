@@ -17,14 +17,18 @@ public class ArithmeticOperationMap {
 		operationMap.put("-", new OperationSubstract());
 		operationMap.put("*", new OperationMultiply());
 		operationMap.put("/", new OperationDivide());
+		operationMap.put("+%", new OperationAddPercent());
+		operationMap.put("*%", new OperationMultiplyPercent());
+		operationMap.put("-%", new OperationSubstractPercent());
+		operationMap.put("/%", new OperationDividePercent());
 	}
 	
-	public boolean isOperationChar(char ch) {
-		if (operationMap.containsKey(ch+"")) return true; 
+	public boolean isOperationChar(String s) {
+		if (operationMap.containsKey(s)) return true; 
 		return false;
 	}
 	
-	public ArithmeticOperation get(char ch) {
-		return operationMap.get(ch+"");
+	public ArithmeticOperation get(String s) {
+		return operationMap.get(s);
 	}
 }
