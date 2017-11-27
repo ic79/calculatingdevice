@@ -9,6 +9,7 @@ public class Controller {
 	
 	private ArithmeticOperationMap operationMap;
 	private ArithmeticOperation currentOperation;
+	private String operationString;
 	
 	private InputStringBuilder stringBuilder;
 	private double actualResult = 0.0;
@@ -19,7 +20,7 @@ public class Controller {
 		keyboard = nKeyboard;
 		
 		operationMap = new ArithmeticOperationMap();		
-		currentOperation = operationMap.get("=");
+		operationString = "=";
 		
 		stringBuilder = new InputStringBuilder(NUMBER_OF_DIGITS);
 		
@@ -43,14 +44,19 @@ public class Controller {
 	private void operationPressed(char ch) {
 		performCurrentOperation(userInputDouble, actualResult);
 		validateDisplay(actualResult);
-		setArithmeticOperation(operationMap.get(ch+""));
+		createOperationString(ch);
+	}
+	
+	private void createOperationString(char ch) {
+		operationString = ch+"";
+	}
+	
+	private void addModifierToOperationString(char ch) {
+		operationString += ch;
 	}
 	
 	private void percentPressed() {
-		if (currentOperation.equals(operationMap.get("+")))	currentOperation = operationMap.get("+%");
-		if (currentOperation.equals(operationMap.get("*")))	currentOperation = operationMap.get("*%");
-		if (currentOperation.equals(operationMap.get("-")))	currentOperation = operationMap.get("-%");
-		if (currentOperation.equals(operationMap.get("/")))	currentOperation = operationMap.get("/%");
+		addModifierToOperationString('%');
 		operationPressed('=');
 	}
 	
@@ -66,6 +72,7 @@ public class Controller {
 	}
 	
 	private void performCurrentOperation(double input, double result) {
+		setArithmeticOperation(operationMap.get(operationString));
 		if (!stringBuilder.isEmptyString()) {
 			actualResult = currentOperation.getResult(input, result);
 			stringBuilder.clearString();
